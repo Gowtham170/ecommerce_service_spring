@@ -15,23 +15,40 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.Data;
 
 @Entity
 @Data
-public class OrderItems {
-
+public class Orders {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     public long id;
-    public String name;
-    public int qty;
-    public String image;
-    public int price;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "orderItems_id")
-    public List<Product> product;
+    @JoinColumn(name = "order_id")
+    public List<Users> user;
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    //@JoinColumn(name="order_id")
+    @Column(name="order_items")
+    public List<OrderItems> orderItems;
+    @OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    @JoinColumn(name="shipping_address_id")
+    public Address shippingAddress;
+    @Column(name="payment_method")
+    public String paymentMethod;
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinColumn(name="order_id")
+    @Column(name="payment_result")
+    public List<PaymentResult> paymentResult;
+    public double itemsPrice;
+    public double taxPrice;
+    public double totalPrice;
+    public boolean  isPaid;
+    public Date paidAt;
+    public boolean isDelivered;
+    public Date deliveredAt;
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
     public Date createdAt;

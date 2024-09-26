@@ -2,7 +2,6 @@ package com.example.ecommerce_service.model;
 
 import java.util.Date;
 import java.util.Set;
-import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -26,9 +25,6 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     public long id;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "product_id")
-    public List<User> user;
     @Column(nullable = false)
     public String name;
     @Column(nullable = false)

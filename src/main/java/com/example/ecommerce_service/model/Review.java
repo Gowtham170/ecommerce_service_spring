@@ -26,7 +26,7 @@ public class Review {
     public long id;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "review_id")
-    public List<User> user;
+    public List<Users> user;
     public String name;
     public String rating;
     public String comment;
